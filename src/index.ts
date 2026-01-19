@@ -2,6 +2,7 @@ import express from 'express';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@as-integrations/express5';
 // import cors from 'cors';
+import{ prisma } from "./lib/prisma"
 
 async function startServer() {
     const app = express();
@@ -16,6 +17,9 @@ async function startServer() {
                 hello: String
                 say(name: String): String
             }
+            type Mutation {
+                createUser(firstame: String!, lastname: String!, email: String, password: String!): Boolean
+            }
         `,
         resolvers: {
             Query: {
@@ -23,6 +27,26 @@ async function startServer() {
                 // Fixed typo 'stirng' and parameter syntax
                 say: (_: any, { name }: { name: string }) => `hey ${name}, how are you`
             },
+            Mutation:{
+                 createUser: async(
+                    _, {firstname, lastname, email, password
+
+                    }:{
+                        firstname:string, lastname:string, email: string, password: string
+                    }
+                )=>{
+                    await prisma.user.create({
+                        data:{
+                            email,
+                            firstname,
+                            lastname,
+                            password,
+                            salt: "random_salt",
+                        }
+                    })
+                    return true
+                }
+            }
         },
     });
 
