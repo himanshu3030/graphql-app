@@ -4,10 +4,11 @@
   "packageManager": "yarn@4.10.3",
   "scripts": {
     "start": "tsc -b",
-    "dev": "tsc -b && node dist/index.js"
+    "dev": "tsc && yarn node dist/src/index.js"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.0.9",
     "@types/pg": "^8.16.0",
     "@types/server": "^1",
@@ -24,6 +25,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "graphql": "^16.12.0",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.17.1",
     "server": "^1.0.42"
   }
